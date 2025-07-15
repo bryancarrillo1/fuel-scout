@@ -3,14 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fuel-Scout</title>
-    <link rel="stylesheet" href="../css/style.css" type = text/css>
+    <link rel="stylesheet" href="../css/styleHome.css" type = "text/css">
 </head>
 <body>
 
-    <div class="menu-bar">
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="menu-bar" onclick="menuToggle()">
+        <div class="first-line"></div>
+        <div class="second-line"></div>
+        <div class="third-line"></div>
     </div>
     <div class="dropdown-menu" id="dropdownMenu">
         <a href="#view-routes">View Routes</a>
@@ -18,15 +18,23 @@
     </div>
     <div class="container">
         <h1>Welcome to Fuel-Scout</h1>
-        <div class="start-button">
+        <div class="start-button" onclick="startToggle()" id="startButton">
             <button>Start Route</button>
         </div>
     </div>
     <script>
         function menuToggle() {
+            document.getElementsByClassName('menu-bar')[0].classList.toggle('open');
             var menu = document.getElementById('dropdownMenu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            menu.classList.toggle('open');
         }
+    </script>
+    <script>
+        function startToggle() {
+            
+            window.location.href = 'registration.html';
+        }
+ 
     </script>
 </body>
 </html>
