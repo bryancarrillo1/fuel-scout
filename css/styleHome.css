@@ -69,3 +69,19 @@ button:hover {
 .dropdown-menu a:hover {
     background-color: #f0f0f0;
 }
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.menu-bar.open .first-line {
+    transform: translateY(10px) rotate(45deg);
+
+}
+
+.menu-bar.open .second-line {
+    opacity:0;
+}
+.menu-bar.open .third-line {
+    transform: translateY(-10px) rotate(-45deg);
+}
