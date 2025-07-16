@@ -9,15 +9,14 @@ def get_trip_cost(coords, props):
     """
     calculate trip cost including tolls and fuel using TollGuru API
 
-    coords: List of coordinate tuples [(lon, lat), ...]
-    props: Dictionary with 'time' (seconds) - distance not needed since API provides it
+    coords: list of coordinate tuples [(lon, lat), ...]
+    props: dictionary with time (seconds) and distance
     
     returns dictionary with trip cost breakdown
     """
     tollguru_api_key = os.getenv('TOLLGURU_API_KEY')
     
     # convert coordinates to lat,lng path format for TollGuru
-    # coords format: [(lon, lat), (lon, lat), ...]
     path_coords = []
     for lon, lat in coords:
         path_coords.append(f"{lat},{lon}")
@@ -47,7 +46,6 @@ def get_trip_cost(coords, props):
             
         toll_data = response.json()
         
-        # extract costs from API response
         route_data = toll_data.get("route", {})
         costs = route_data.get("costs", {})
         
@@ -58,7 +56,6 @@ def get_trip_cost(coords, props):
         has_tolls = route_data.get("hasTolls", False)
         
         if has_tolls:
-            # try different toll cost fields
             toll_amount = (costs.get("tag") or 
                           costs.get("cash") or 
                           costs.get("tagAndCash") or 
@@ -76,7 +73,7 @@ def get_trip_cost(coords, props):
             "toll_cost_usd": round(toll_amount, 2),
             "total_cost_usd": round(fuel_cost + toll_amount, 2),
             "has_tolls": has_tolls,
-            #"api_response": toll_data  # full response for debugging
+            #"api_response": toll_data  # full response
         }
         
     except requests.exceptions.RequestException as e:
