@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fuel-Scout</title>
-    <link rel="stylesheet" href="../css/styleHome.css" type = "text/css">
+    <link rel="stylesheet" href="../static/styleHome.css" type = "text/css">
 </head>
 <body>
 
@@ -19,17 +19,17 @@
         <div class="start-button" id="startButton">
             <button onclick="goToRegistration()">Start Route</button>
         </div>
-        <img src="../img/road.png" alt="road" class="road-image">
+        <img src="../static/img/road.png" alt="road" class="road-image">
     </div>
     <script>
         function goToRegistration() {
-            window.location.href = "registration.html";
+            window.location.href = "{{ url_for('register') }}";
         }
     </script>
 
 <script>
     function goToCoordinates() {
-        window.location.href = "coordinates.html";
+        window.location.href = "{{ url_for('coordinates') }}";
     }
 </script>
 

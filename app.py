@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, flash, redirect, url_for
 import sqlalchemy as db
 from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
 
@@ -35,15 +35,23 @@ app = Flask(__name__)
 def home_page():
     return render_template('index.html') 
 
-@app.route("/register", methods=['GET', 'POST'])
+'''@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('home')) 
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form)'''
+
+@app.route("/register")
+def register():
+    return render_template('registration.html')
+
+@app.route("/coordinates")
+def coordinates():
+    return render_template('coordinates.html')
 
     
 if __name__ == '__main__':        
     db_init()      
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0", port=5001)
