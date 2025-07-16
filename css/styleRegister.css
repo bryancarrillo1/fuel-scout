@@ -1,0 +1,59 @@
+.title {
+    font-size:28px;
+    font-weight:bold;
+    text-align:center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 25px;
+}
+
+.username, .password, .password-confirm{
+    display:flex;
+    align-items:center;
+    margin-bottom: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight:400;
+
+}
+.username input, .password input, .password-confirm input {
+    flex: 1;
+    margin-left:16px;
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 9999px;
+    font-size: 16px;          
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+}
+
+.username input:focus,
+.password input:focus,
+.password-confirm input:focus {
+  background: #fff;
+  border-color: #999;
+}
+
+.button {
+    display:block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.registration{
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    
+}

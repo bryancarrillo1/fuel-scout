@@ -1,0 +1,28 @@
+.title {
+    font-size:28px;
+    font-weight:bold;
+    text-align:center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 25px;
+}
+
+
+
+
+
+.button {
+    display:block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
