@@ -38,7 +38,7 @@ button:hover {
     margin-bottom: 25px;
 }
 
-.latitude-start, .longitude-start, .latitude-end, .longitude-end{
+.latitude-start, .longitude-start, .latitude-end, .longitude-end , .trip-name {
     display:flex;
     align-items:center;
     margin-bottom: 20px;
@@ -46,7 +46,7 @@ button:hover {
     font-weight:400;
 
 }
-.latitude-start input, .longitude-start input, .latitude-end input, .longitude-end input {
+.latitude-start input, .longitude-start input, .latitude-end input, .longitude-end input, .trip-name input {
     flex: 1;
     margin-left:16px;
     padding: 12px 20px;
@@ -62,7 +62,8 @@ button:hover {
 .latitude-start input:focus,
 .longitude-start input:focus,
 .latitude-end input:focus,
-.longitude-end input:focus {
+.longitude-end input:focus, 
+.trip-name input:focus {
   background: #fff;
   border-color: #999;
 }
