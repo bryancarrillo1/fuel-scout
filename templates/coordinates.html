@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Fuel-Scout Registration
@@ -28,4 +28,57 @@
 
     <button class="button" onclick="">Submit</button>
 </body>
-</html>
+</html> -->
+
+
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='coordinatesStyle.css') }}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+  <div class="coordinates">
+    <h1 class="title">Enter Coordinates</h1>
+
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <h3 class="latitude-start">
+        {{ form.username.label }}
+        {{ form.username(placeholder="") }}
+        {% for err in form.username.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="longitude-start">
+        {{ form.username.label }}
+        {{ form.username(placeholder="") }}
+        {% for err in form.username.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="latitude-end">
+        {{ form.username.label }}
+        {{ form.username(placeholder="") }}
+        {% for err in form.username.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="longitude-end">
+        {{ form.username.label }}
+        {{ form.username(placeholder="") }}
+        {% for err in form.username.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <button class="button" type="submit">
+        {{ form.submit.label.text }}
+      </button>
+    </form>
+  </div>
+{% endblock %}
