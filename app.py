@@ -1,4 +1,7 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, flash, redirect, url_for
+from forms import RegistrationForm, LoginForm
 import sqlalchemy as db
 from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
 
@@ -30,30 +33,41 @@ def insert_db():
     engine, trips_table = db_init()
     
     
-app = Flask(__name__)                    
+app = Flask(__name__) 
+load_dotenv()
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')                 
 @app.route("/")                       
 def home_page():
     return render_template('index.html') 
 
-'''@app.route("/register", methods=['GET', 'POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('home')) 
-    return render_template('register.html', title='Register', form=form)'''
+        return redirect(url_for('login')) # update this with the login page not home page
+    return render_template('registration.html', title='Register', form=form)
+
+
 
 @app.route("/map")
 def map():
     return render_template("map.html")
 
-@app.route("/register")
+'''@app.route("/register")
 def register():
-    return render_template('registration.html')
+    return render_template('registration.html')'''
 
 @app.route("/coordinates")
 def coordinates():
     return render_template('coordinates.html')
+
+@app.route("/login", methods = ['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect(url_for('coordinates'))
+    return render_template('login.html', title='Login', form=form)
 
     
 if __name__ == '__main__':        

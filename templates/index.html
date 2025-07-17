@@ -11,7 +11,7 @@
     <div class="dropdown-menu" id="dropdownMenu">
         <div class="button-container"> 
             <button onclick="goToRegistration()"> Sign Up</button>
-            <button onclick="goToCoordinates()"> Coordinates</button>
+            <button onclick="goToLogIn()"> Log in</button>
         </div>
     </div>
     <div class="container">
@@ -28,8 +28,8 @@
     </script>
 
 <script>
-    function goToCoordinates() {
-        window.location.href = "{{ url_for('coordinates') }}";
+    function goToLogIn() {
+        window.location.href = "{{ url_for('login') }}";
     }
 </script>
 

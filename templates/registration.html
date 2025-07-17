@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Fuel-Scout Registration
@@ -27,4 +27,56 @@
     </div>
     </body>
 
-</html>
+</html> -->
+
+{% extends "layout.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styleRegister.css') }}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+  <div class="registration">
+    <h1 class="title">Registration Portal</h1>
+
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <h3 class="username">
+        {{ form.username.label }}
+        {{ form.username(placeholder="") }}
+        {% for err in form.username.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="username">
+        {{ form.email.label }}
+        {{ form.email(placeholder="") }}
+        {% for err in form.email.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="password">
+        {{ form.password.label }}
+        {{ form.password(placeholder="") }}
+        {% for err in form.password.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <h3 class="password-confirm">
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password(placeholder="") }}
+        {% for err in form.confirm_password.errors %}
+          <div class="error">{{ err }}</div>
+        {% endfor %}
+      </h3>
+
+      <button class="button" type="submit">
+        {{ form.submit.label.text }}
+      </button>
+    </form>
+  </div>
+{% endblock %}
