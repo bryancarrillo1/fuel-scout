@@ -1,85 +1,34 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Fuel-Scout Registration
     </title>
-    <link rel="stylesheet" href="../static/styleRegister.css" type = "text/css">
+    <link rel="stylesheet" href="../static/coordinatesStyle.css" type = "text/css">
 </head>
 
 <body>
-    <h1 class="title"> Coordinates Form</h1>
-    <form action="/map" method="POST">
-        <h3 class="latitude-start"> 
-            Start location latitude
-            <input type="text" name="start_lat" placeholder=" " />   
-        </h3>
-        <h3 class="longitude-start">
-            Start location longitude
-            <input type="text" name="start_long" placeholder=" " />
-        </h3>
-        <h3 class="latitude-end">
-            End location latitude
-            <input type="text" name="end_lat" placeholder=" " />
-        </h3>
-        <h3 class="longitude-end">
-            End location longitude
-            <input type="text" name="end_long" placeholder=" " />
-        </h3>
+    <div class="coordinates">
+        <h1 class="title"> Enter Coordinates</h1>
+        <form action="/map" method="POST">
+            <h3 class="latitude-start"> 
+                Start location latitude
+                <input type="text" name="start_lat" placeholder=" " />   
+            </h3>
+            <h3 class="longitude-start">
+                Start location longitude
+                <input type="text" name="start_long" placeholder=" " />
+            </h3>
+            <h3 class="latitude-end">
+                End location latitude
+                <input type="text" name="end_lat" placeholder=" " />
+            </h3>
+            <h3 class="longitude-end">
+                End location longitude
+                <input type="text" name="end_long" placeholder=" " />
+            </h3>
 
-        <button class="button" onclick="">Submit</button>
-    </form>
+            <button class="button" onclick="">Submit</button>
+        </form>
+</div>
 </body>
-</html> -->
-
-
-{% extends "layout.html" %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='coordinatesStyle.css') }}" type="text/css"/>
-{% endblock %}
-
-{% block content %}
-  <div class="coordinates">
-    <h1 class="title">Enter Coordinates</h1>
-
-    <form method="POST">
-      {{ form.hidden_tag() }}
-
-      <h3 class="latitude-start">
-        {{ form.username.label }}
-        {{ form.username(placeholder="") }}
-        {% for err in form.username.errors %}
-          <div class="error">{{ err }}</div>
-        {% endfor %}
-      </h3>
-
-      <h3 class="longitude-start">
-        {{ form.username.label }}
-        {{ form.username(placeholder="") }}
-        {% for err in form.username.errors %}
-          <div class="error">{{ err }}</div>
-        {% endfor %}
-      </h3>
-
-      <h3 class="latitude-end">
-        {{ form.username.label }}
-        {{ form.username(placeholder="") }}
-        {% for err in form.username.errors %}
-          <div class="error">{{ err }}</div>
-        {% endfor %}
-      </h3>
-
-      <h3 class="longitude-end">
-        {{ form.username.label }}
-        {{ form.username(placeholder="") }}
-        {% for err in form.username.errors %}
-          <div class="error">{{ err }}</div>
-        {% endfor %}
-      </h3>
-
-      <button class="button" type="submit">
-        {{ form.submit.label.text }}
-      </button>
-    </form>
-  </div>
-{% endblock %}
+</html>

@@ -61,7 +61,7 @@ button:hover {
 
 .latitude-start input:focus,
 .longitude-start input:focus,
-.latitude-end input:focus
+.latitude-end input:focus,
 .longitude-end input:focus {
   background: #fff;
   border-color: #999;
@@ -86,10 +86,10 @@ button:hover {
 
 .coordinates{
     padding: 20px;
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
     position:absolute;
-    top:50%;
+    top:30%;
     left:50%;
     transform: translate(-50%, -50%);
     
