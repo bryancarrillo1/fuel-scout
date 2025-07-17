@@ -1,11 +1,13 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, render_template, flash, redirect, url_for, request, session
 from forms import RegistrationForm, LoginForm
 import sqlalchemy as db
 import sys
 from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
 import os
+
+from database import db as user_db
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
 
@@ -44,7 +46,8 @@ def insert_db():
     
 app = Flask(__name__) 
 load_dotenv()
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')                 
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  
+
 @app.route("/")                       
 def home_page():
     return render_template('index.html') 
@@ -53,8 +56,27 @@ def home_page():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('login')) # update this with the login page not home page
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
+
+        # validators for username and email uniqueness
+        if user_db.username_exists(username):
+            flash('Username already exists. Please choose a different one.', 'danger')
+            return render_template('registration.html', title='Register', form=form)
+        
+        if user_db.email_exists(email):
+            flash('Email already used. Please use a different email.', 'danger')
+            return render_template('registration.html', title='Register', form=form)
+        
+        try:
+            # create new user
+            user_id = user_db.create_user(username, email, password)
+            flash(f'Account created for {username}!', 'success')
+            return redirect(url_for('login'))
+        except ValueError as e:
+            flash(f'Registration failed: {str(e)}', 'danger')
+            return render_template('registration.html', title='Register', form=form)
     return render_template('registration.html', title='Register', form=form)
 
 
@@ -88,7 +110,23 @@ def coordinates():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('coordinates'))
+        username = form.username.data
+        password = form.password.data
+        
+        # authenticate user
+        user = user_db.authenticate_user(username, password)
+        
+        if user:
+            # store user info in session
+            session['user_id'] = user['id']
+            session['username'] = user['username']
+            session['logged_in'] = True
+            
+            flash(f'Welcome back, {user["username"]}!', 'success')
+            return redirect(url_for('coordinates'))
+        else:
+            flash('Invalid username or password.', 'danger')
+
     return render_template('login.html', title='Login', form=form)
 
     
