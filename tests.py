@@ -1,5 +1,5 @@
 import unittest
-from app import app, db_init
+from app import app
 
 class TestApp(unittest.TestCase):
     
@@ -8,6 +8,10 @@ class TestApp(unittest.TestCase):
     
     def test_home(self):
         response = self.app.get('/', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_map(self):
+        response = self.app.get('map', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         
 

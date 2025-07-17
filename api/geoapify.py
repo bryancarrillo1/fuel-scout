@@ -45,11 +45,12 @@ def get_coordinates(data):
 
     feature = data["features"][0]
     coords = feature["geometry"]["coordinates"]
-
+    print(coords)
     if isinstance(coords[0][0], list):
-        return [pt for line in coords for pt in line]
+        flat_coords = [pt for line in coords for pt in line]
     else:
-        return coords
+        flat_coords = coords
+    return [coord[::-1] for coord in flat_coords]
 
 def get_fuel_stations_along_route(route_data, search_radius=2000, point_interval=120):
     """
