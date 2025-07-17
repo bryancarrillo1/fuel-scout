@@ -18,7 +18,7 @@ class Database:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT UNIQUE NOT NULL,
                     email TEXT UNIQUE NOT NULL,
-                    password TEXT NOT NULL,
+                    password TEXT NOT NULL
                 )
             ''')          
             conn.commit()
@@ -51,14 +51,12 @@ class Database:
                     raise ValueError("User creation failed")
     
     def get_user_by_username(self, username):
-        """Get user by username"""
         with self.get_db_connection() as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
             return cursor.fetchone()
     
     def get_user_by_email(self, email):
-        """Get user by email"""
         with self.get_db_connection() as conn:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM users WHERE email = ?', (email,))

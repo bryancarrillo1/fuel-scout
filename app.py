@@ -8,6 +8,9 @@ from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
 import os
 
 from database import db as user_db
+from trips_database import TripsDatabase 
+
+trips_db = TripsDatabase()
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
 
@@ -16,34 +19,6 @@ from geoapify import get_route, get_coordinates
 # include api directory for geoapify
 sys.path.insert(0, 'week-3-project/api')
 
-# Sets up database with columns for starting/end coordinates and estimated total price
-def db_init():
-    engine = db.create_engine('sqlite:///trips_database.db')
-    metadata = MetaData()
-    
-    trips_table = Table('trips', metadata,
-                        Column('start', String),
-                        Column('end', String),
-                        Column('costs', FLOAT),
-                        db.PrimaryKeyConstraint('start', 'end'))
-    
-    metadata.create_all(engine)
-    with engine.connect() as connection:
-        stmt = insert(trips_table).values(start=0,
-                                        end=2,
-                                        costs=2)
-        connection.execute(stmt)
-        
-        res = connection.execute(db.text("SELECT * FROM trips"))
-        for rows in res:
-            print(rows)
-    
-    return engine, trips_table
-
-def insert_db():
-    engine, trips_table = db_init()
-    
-    
 app = Flask(__name__) 
 load_dotenv()
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  
@@ -83,20 +58,36 @@ def register():
 
 @app.route("/map", methods=["GET", "POST"])
 def map():
-    start_lat = request.form["start_lat"]
-    start_long = request.form["start_long"]
-    end_lat = request.form["end_lat"]
-    end_long = request.form["end_long"]
+    if request.method == "POST":
+        start_lat = request.form["start_lat"]
+        start_long = request.form["start_long"]
+        end_lat = request.form["end_lat"]
+        end_long = request.form["end_long"]
+        trip_name = request.form.get("trip_name", "Untitled Trip")
+        user_id = session.get("user_id")
+
+        # save trip to database
+        trips_db.save_trip(
+            user_id=user_id,
+            trip_name=trip_name,
+            start_lat=start_lat,
+            start_lon=start_long,
+            end_lat=end_lat,
+            end_lon=end_long
+        )
+
+        # get route data and render map
+        route = get_route(start_lat, start_long, end_lat, end_long)
+        coords = get_coordinates(route)
+        return render_template("map.html", coords=coords)
     
     # Calculate center of polyline for improved display
     # center_lat = (start_lat+end_lat)/2
     # center_long = (start_long+end_long)/2
+
+    return render_template("map.html")
+  
     
-    route = get_route(start_lat, start_long, end_lat, end_long)         # Get route data in JSON format
-    coords = get_coordinates(route)
-    
-    
-    return render_template("map.html", coords=coords)
 
 '''@app.route("/register")
 def register():
@@ -131,5 +122,5 @@ def login():
 
     
 if __name__ == '__main__':        
-    db_init()      
+    #db_init()      
     app.run(debug=True, host="0.0.0.0", port=5001)
