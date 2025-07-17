@@ -8,25 +8,26 @@
 
 <body>
     <h1 class="title"> Coordinates Form</h1>
+    <form action="/map" method="POST">
+        <h3 class="latitude-start"> 
+            Start location latitude
+            <input type="text" name="start_lat" placeholder=" " />   
+        </h3>
+        <h3 class="longitude-start">
+            Start location longitude
+            <input type="text" name="start_long" placeholder=" " />
+        </h3>
+        <h3 class="latitude-end">
+            End location latitude
+            <input type="text" name="end_lat" placeholder=" " />
+        </h3>
+        <h3 class="longitude-end">
+            End location longitude
+            <input type="text" name="end_long" placeholder=" " />
+        </h3>
 
-    <h3 class="latitude-start"> 
-        Start location latitude
-        <input type="text" placeholder=" " />   
-    </h3>
-    <h3 class="longitude-start">
-        Start location longitude
-        <input type="text" placeholder=" " />
-    </h3>
-    <h3 class="latitude-end">
-        End location latitude
-        <input type="text" placeholder=" " />
-    </h3>
-    <h3 class="longitude-end">
-        End location longitude
-        <input type="text" placeholder=" " />
-    </h3>
-
-    <button class="button" onclick="">Submit</button>
+        <button class="button" onclick="">Submit</button>
+    </form>
 </body>
 </html> -->
 

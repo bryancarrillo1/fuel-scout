@@ -1,4 +1,5 @@
-<!DOCTYPE hmtl>
+<!DOCTYPE html>
+<html>
 <head>
 <!-- Leaflet css file -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -9,37 +10,25 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 </head>
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Map</h1>
+  <div id="map"></div>
 
-<style>
-    #map {
-        height: 360px;
-        width: 360px;
-    }
-</style>
+  <script>
+    var map = L.map('map').setView([32.7767, -96.7970], 6);
 
-<h1> Map </h1>
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 
-<div id="map">
-    
-</div>
-
-<script> 
-    var map = L.map('map').setView([-104.99404, 39.75621], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    // create a red polyline from an array of LatLng points
-    var latlngs = [
-        [45.51, -122.68],
-        [37.77, -122.43],
-        [34.04, -118.2]
-    ];
-
+    var latlngs = {{ coords | tojson }};
+    console.log(latlngs);
     var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-
-    // zoom the map to the polyline
     map.fitBounds(polyline.getBounds());
-
-</script>
+  </script>
+</body>
+</html>
