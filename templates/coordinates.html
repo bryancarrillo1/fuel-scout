@@ -36,5 +36,21 @@
 
         </form>
 </div>
+<div class="trip-history">
+    <h2>Your Saved Trips</h2>
+    {% if trips %}
+        <ul>
+            {% for trip in trips %}
+                <li>
+                    <strong>{{ trip["trip_name"] }}</strong><br>
+                    Start: ({{ trip["start_lat"] }}, {{ trip["start_lon"] }})<br>
+                    End: ({{ trip["end_lat"] }}, {{ trip["end_lon"] }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No trips saved yet.</p>
+    {% endif %}
+</div>
 </body>
 </html>

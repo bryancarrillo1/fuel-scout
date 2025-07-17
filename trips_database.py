@@ -52,7 +52,6 @@ class TripsDatabase:
             cursor.execute('''
                 SELECT * FROM trips 
                 WHERE user_id = ? 
-                ORDER BY created_at DESC
             ''', (user_id,))
             return cursor.fetchall()
     

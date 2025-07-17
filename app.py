@@ -95,7 +95,9 @@ def register():
 
 @app.route("/coordinates")
 def coordinates():
-    return render_template('coordinates.html')
+    user_id = session["user_id"]
+    trips = trips_db.get_user_trips(user_id)
+    return render_template("coordinates.html", trips=trips)
 
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
