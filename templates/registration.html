@@ -44,7 +44,7 @@
 
       <h3 class="username">
         {{ form.username.label }}
-        {{ form.username(placeholder="") }}
+        {{ form.username(class_="input-error" if form.username.errors else "", placeholder="") }}
         {% for err in form.username.errors %}
           <div class="error">{{ err }}</div>
         {% endfor %}
@@ -52,7 +52,7 @@
 
       <h3 class="username">
         {{ form.email.label }}
-        {{ form.email(placeholder="") }}
+        {{ form.email(class_="input-error" if form.email.errors else "", placeholder="") }}
         {% for err in form.email.errors %}
           <div class="error">{{ err }}</div>
         {% endfor %}
@@ -60,7 +60,7 @@
 
       <h3 class="password">
         {{ form.password.label }}
-        {{ form.password(placeholder="") }}
+        {{ form.password(class_="input-error" if form.password.errors else "", placeholder="") }}
         {% for err in form.password.errors %}
           <div class="error">{{ err }}</div>
         {% endfor %}
@@ -68,7 +68,7 @@
 
       <h3 class="password-confirm">
         {{ form.confirm_password.label }}
-        {{ form.confirm_password(placeholder="") }}
+        {{ form.confirm_password(class_="input-error" if form.confirm_password.errors else "", placeholder="") }}
         {% for err in form.confirm_password.errors %}
           <div class="error">{{ err }}</div>
         {% endfor %}
