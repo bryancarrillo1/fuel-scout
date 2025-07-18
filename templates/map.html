@@ -36,10 +36,14 @@
     map.fitBounds(polyline.getBounds());
     
     // add markers for each gas station along the route
-    gasStat_cords = {{ gas_cords | tojson}}
+    var gasStat_cords = {{ gas_cords | tojson}};
+    var stat_info = {{ station_info | tojson}};
     for(let i = 0; i < Object.keys(gasStat_cords).length; i++) {
+        let brand = stat_info[i].brand;
+        let address = stat_info[i].address;
+        let popup = `Brand: ${brand}<br>Address: ${address}`;
         L.marker(gasStat_cords[i]).addTo(map)
-            .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+            .bindPopup(popup)
             .openPopup();
     }
   </script>

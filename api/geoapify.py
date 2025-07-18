@@ -96,6 +96,25 @@ def get_fuel_stations_along_route(route_data, search_radius=2000, point_interval
     print(f"Total stations found: {len(all_stations)}")
     return {"type": "FeatureCollection", "features": all_stations}
 
+def get_fuel_addresses(stations_data):
+    features = stations_data.get("features",  [])
+    stations = []
+    i = 1
+    for feature in features:
+        props = feature.get("properties", {})
+        coords = feature.get("geometry", {}).get("coordinates", [])
+        print(f"\n{i}. {props.get('name', 'Unknown Station')}")
+        print(f"   Brand: {props.get('brand', 'N/A')}")
+        print(f"   Address: {props.get('formatted', 'N/A')}")
+        if len(coords)==2:  
+            brand = props.get("brand", "N/A")
+            address = props.get("formatted", "N/A")
+            stations.append({'brand':brand, "address":address})
+        i+=1
+    print(stations)
+    return stations    
+            
+    
 def get_fuel_coordinates(stations_data):
     """
     Extracts coordinates from the fuel stations data

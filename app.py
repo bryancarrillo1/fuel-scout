@@ -14,7 +14,7 @@ trips_db = TripsDatabase()
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
 
-from geoapify import get_route, get_coordinates, get_properties, get_fuel_stations_along_route, get_fuel_coordinates
+from geoapify import get_route, get_coordinates, get_properties, get_fuel_stations_along_route, get_fuel_coordinates, get_fuel_addresses
 from tollguru import get_trip_cost
 
 # include api directory for geoapify
@@ -101,13 +101,21 @@ def map():
         toll_guru_coords = [coord[::-1] for coord in coords] #revers lon lat for tollguru
         trip_cost = get_trip_cost(toll_guru_coords,props)
         
-        # get gas station data
+        # get gas station coords
         lonlat = [[cord[1], cord[0]] for cord in coords]
         stations = get_fuel_stations_along_route(lonlat)
         station_cords = get_fuel_coordinates(stations)
         print(station_cords)
+        
+        # get gas station brand and address
+        # Test coordinates
+        # 32.777415514467855 -96.78841389107889
+        # 30.259838489967215 -97.74602960670074
+        
+        # get gas station brands and addresses
+        station_info = get_fuel_addresses(stations) or []
 
-        return render_template("map.html", coords=coords,trip_cost=trip_cost, gas_cords=station_cords)
+        return render_template("map.html", coords=coords, trip_cost=trip_cost, gas_cords=station_cords, station_info=station_info)
     
     return render_template('coordinates.html', form=form, trips=trips)
     
