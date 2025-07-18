@@ -50,8 +50,7 @@ def get_coordinates(data):
         flat_coords = [pt for line in coords for pt in line]
     else:
         flat_coords = coords
-    #return [coord[::-1] for coord in flat_coords]
-    return flat_coords
+    return [coord[::-1] for coord in flat_coords]
 
 def get_fuel_stations_along_route(route_data, search_radius=2000, point_interval=120):
     """

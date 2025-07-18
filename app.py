@@ -14,7 +14,8 @@ trips_db = TripsDatabase()
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
 
-from geoapify import get_route, get_coordinates
+from geoapify import get_route, get_coordinates, get_properties
+from tollguru import get_trip_cost
 
 # include api directory for geoapify
 sys.path.insert(0, 'week-3-project/api')
@@ -79,7 +80,12 @@ def map():
         # get route data and render map
         route = get_route(start_lat, start_long, end_lat, end_long)
         coords = get_coordinates(route)
-        return render_template("map.html", coords=coords)
+        props = get_properties(route)
+
+        toll_guru_coords = [coord[::-1] for coord in coords] #revers lon lat for tollguru
+        trip_cost = get_trip_cost(toll_guru_coords,props)
+
+        return render_template("map.html", coords=coords,trip_cost=trip_cost)
     
     # Calculate center of polyline for improved display
     # center_lat = (start_lat+end_lat)/2

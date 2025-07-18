@@ -30,5 +30,38 @@
     var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
     map.fitBounds(polyline.getBounds());
   </script>
+
+{% if trip_cost %}
+<div class="trip-cost-container">
+    <h3>Trip Cost Breakdown</h3>
+    
+    <div class="cost-grid">
+        <div class="cost-item">
+            <strong>Distance:</strong> {{ trip_cost.distance_miles }} miles
+        </div>
+        
+        <div class="cost-item">
+            <strong>Duration:</strong> {{ trip_cost.duration_minutes }} minutes
+        </div>
+        
+        <div class="cost-item">
+            <strong>Fuel Cost:</strong> ${{ trip_cost.fuel_cost_usd }}
+        </div>
+        
+        <div class="cost-item">
+            <strong>Toll Cost:</strong> 
+            {% if trip_cost.has_tolls %}
+                ${{ trip_cost.toll_cost_usd }}
+            {% else %}
+                No tolls
+            {% endif %}
+        </div>
+        
+        <div class="cost-item">
+            <strong>Total Cost: ${{ trip_cost.total_cost_usd }}</strong>
+        </div>
+    </div>
+</div>
+{% endif %}
 </body>
 </html>
