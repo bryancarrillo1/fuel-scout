@@ -104,6 +104,17 @@ button:hover {
 
 .trip-history ul {
     line-height: 1.8;
+  
+}
+.container {
+    width: 550px;
+    margin: 2rem auto;
+
+}
+.error {
+    color: red;
+    font-size: 0.875rem; /* 14px */
+    margin-top: 0.5rem;
 }
 
 
