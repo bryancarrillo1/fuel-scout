@@ -15,7 +15,8 @@ def get_route(start_lat, start_lon, end_lat, end_lon):
     url = "https://api.geoapify.com/v1/routing"
     
     params = {
-        "waypoints": f"{start_lat},{start_lon}|{end_lat},{end_lon}",
+        "waypoints[0]": f"{start_lat},{start_lon}",
+        "waypoints[1]": f"{end_lat},{end_lon}",
         "mode": "drive",  
         "apiKey": api_key
     }
@@ -45,21 +46,20 @@ def get_coordinates(data):
 
     feature = data["features"][0]
     coords = feature["geometry"]["coordinates"]
-    print(coords)
     if isinstance(coords[0][0], list):
         flat_coords = [pt for line in coords for pt in line]
     else:
         flat_coords = coords
     return [coord[::-1] for coord in flat_coords]
 
-def get_fuel_stations_along_route(route_data, search_radius=2000, point_interval=120):
+def get_fuel_stations_along_route(route_data, search_radius=2000, point_interval=240):
     """
     find fuel stations along a route using circles with search radius (set to 2km by default) at specified interval
     """
 
     api_key = os.getenv('GEOAPIFY_API_KEY')
     
-    coordinates = get_coordinates(route_data)
+    coordinates = route_data
     print(f"Route has {len(coordinates)} coordinate points")
     
     sampled_coords = coordinates[::point_interval]

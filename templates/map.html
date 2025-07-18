@@ -19,16 +19,29 @@
   <div id="map"></div>
 
   <script>
-    var map = L.map('map').setView([32.7767, -96.7970], 6);
+    // get route coordinats from flask
+    var latlngs = {{ coords | tojson }};
+
+    start_cords = latlngs[0];
+
+    // initialize the map with the starting coordinates
+    var map = L.map('map').setView(start_cords, 6);
 
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
-
-    var latlngs = {{ coords | tojson }};
     console.log(latlngs);
+    // add polyline with the given route coordinates
     var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
     map.fitBounds(polyline.getBounds());
+    
+    // add markers for each gas station along the route
+    gasStat_cords = {{ gas_cords | tojson}}
+    for(let i = 0; i < Object.keys(gasStat_cords).length; i++) {
+        L.marker(gasStat_cords[i]).addTo(map)
+            .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+            .openPopup();
+    }
   </script>
 
 {% if trip_cost %}

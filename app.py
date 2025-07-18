@@ -14,7 +14,7 @@ trips_db = TripsDatabase()
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
 
-from geoapify import get_route, get_coordinates, get_properties
+from geoapify import get_route, get_coordinates, get_properties, get_fuel_stations_along_route, get_fuel_coordinates
 from tollguru import get_trip_cost
 
 # include api directory for geoapify
@@ -90,22 +90,26 @@ def map():
 
         # get route data and render map
         route = get_route(start_lat, start_long, end_lat, end_long)
+        
+        # if not route:
+        #     flash("Could not fetch route from API.", "danger")
+        #     return redirect(url_for("home_page"))
+        
         coords = get_coordinates(route)
         props = get_properties(route)
 
         toll_guru_coords = [coord[::-1] for coord in coords] #revers lon lat for tollguru
         trip_cost = get_trip_cost(toll_guru_coords,props)
+        
+        # get gas station data
+        lonlat = [[cord[1], cord[0]] for cord in coords]
+        stations = get_fuel_stations_along_route(lonlat)
+        station_cords = get_fuel_coordinates(stations)
+        print(station_cords)
 
-        return render_template("map.html", coords=coords,trip_cost=trip_cost)
+        return render_template("map.html", coords=coords,trip_cost=trip_cost, gas_cords=station_cords)
     
     return render_template('coordinates.html', form=form, trips=trips)
-    
-    # Calculate center of polyline for improved display
-    # center_lat = (start_lat+end_lat)/2
-    # center_long = (start_long+end_long)/2
-
-    
-  
     
 
 '''@app.route("/register")
