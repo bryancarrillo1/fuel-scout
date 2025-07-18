@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, flash, redirect, url_for, request, session
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, CoordinateForm
 import sqlalchemy as db
 import sys
 from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
@@ -58,13 +58,24 @@ def register():
 
 @app.route("/map", methods=["GET", "POST"])
 def map():
-    if request.method == "POST":
-        start_lat = request.form["start_lat"]
+    form = CoordinateForm()
+    user_id = session.get("user_id")
+    trips = trips_db.get_user_trips(user_id)
+
+    
+    if request.method == "POST" and form.validate_on_submit():
+        '''start_lat = request.form["start_lat"]
         start_long = request.form["start_long"]
         end_lat = request.form["end_lat"]
         end_long = request.form["end_long"]
-        trip_name = request.form.get("trip_name", "Untitled Trip")
-        user_id = session.get("user_id")
+        trip_name = request.form.get("trip_name", "Untitled Trip")'''
+
+        start_lat = form.start_lat.data
+        start_long = form.start_long.data
+        end_lat = form.end_lat.data
+        end_long = form.end_long.data
+        trip_name = form.trip_name.data.strip() or "Untitled Trip"
+        
 
         # save trip to database
         trips_db.save_trip(
@@ -81,11 +92,13 @@ def map():
         coords = get_coordinates(route)
         return render_template("map.html", coords=coords)
     
+    return render_template('coordinates.html', form=form, trips=trips)
+    
     # Calculate center of polyline for improved display
     # center_lat = (start_lat+end_lat)/2
     # center_long = (start_long+end_long)/2
 
-    return render_template("map.html")
+    
   
     
 
@@ -95,9 +108,10 @@ def register():
 
 @app.route("/coordinates")
 def coordinates():
+    form = CoordinateForm()
     user_id = session["user_id"]
     trips = trips_db.get_user_trips(user_id)
-    return render_template("coordinates.html", trips=trips)
+    return render_template("coordinates.html", trips=trips, form=form)
 
 @app.route("/login", methods = ['GET', 'POST'])
 def login():

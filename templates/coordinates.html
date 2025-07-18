@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Fuel-Scout Registration
@@ -36,16 +36,17 @@
 
         </form>
 </div>
+
 <div class="trip-history">
-    <h2>Your Saved Trips</h2>
+    <h3>Your Saved Trips!</h3>
     {% if trips %}
         <ul>
             {% for trip in trips %}
-                <li>
-                    <strong>{{ trip["trip_name"] }}</strong><br>
-                    Start: ({{ trip["start_lat"] }}, {{ trip["start_lon"] }})<br>
-                    End: ({{ trip["end_lat"] }}, {{ trip["end_lon"] }})
-                </li>
+            <li>
+                <strong>{{ trip['trip_name'] }}</strong><br>
+                Start Coordinates ({{ trip['start_lat'] }}, {{ trip['start_lon'] }})
+                End Coordinates ({{ trip['end_lat'] }}, {{ trip['end_lon'] }})
+              </li>
             {% endfor %}
         </ul>
     {% else %}
@@ -53,4 +54,77 @@
     {% endif %}
 </div>
 </body>
-</html>
+</html> -->
+
+
+
+{% extends "layout.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='coordinatesStyle.css') }}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="coordinates">
+        <h1 class="coordinates">
+            Enter Coordinates
+        </h1>
+        <form action = "{{ url_for('map') }}" method=POST > 
+
+            {{form.hidden_tag() }}
+            <h3 class="latitude-start">
+                Start location latitude
+                {{ form.start_lat(class_="input-error" if form.start_lat.errors else "", placeholder=" ") }}
+                {% for err in form.start_lat.errors %}
+                    <div class="error">{{ err }}</div>
+                {% endfor %}
+            </h3>
+            <h3 class="longitude-start">
+                Start location longitude
+                {{ form.start_long(class_="input-error" if form.start_long.errors else "", placeholder=" ") }}
+                {% for err in form.start_long.errors %}
+                    <div class="error">{{ err }}</div>
+                {% endfor %}
+            </h3>
+            <h3 class="latitude-end">
+                End location latitude
+                {{ form.end_lat(class_="input-error" if form.end_lat.errors else "", placeholder=" ") }}
+                {% for err in form.end_lat.errors %}
+                    <div class="error">{{ err }}</div>
+                {% endfor %}
+            </h3>
+            <h3 class="longitude-end">
+                End location longitude
+                {{ form.end_long(class_="input-error" if form.end_long.errors else "", placeholder=" ") }}
+                {% for err in form.end_long.errors %}
+                    <div class="error">{{ err }}</div>
+                {% endfor %}
+            </h3>
+            <h3 class="trip-name">
+                Trip Name
+                {{ form.trip_name(class_="input-error" if form.trip_name.errors else "", placeholder=" ") }}
+                {% for err in form.trip_name.errors %}
+                    <div class="error">{{ err }}</div>
+                {% endfor %}
+            </h3>
+            <button class="button" type="submit">
+                {{ form.submit.label.text }}
+            </button>
+        </form>
+    </div>
+    <div class="trip-history">
+        <h3>Your Saved Trips!</h3>
+        {% if trips %}
+            <ul>
+                {% for trip in trips %}
+                <li>
+                    <strong>{{ trip['trip_name'] }}</strong><br>
+                    Start Coordinates ({{ trip['start_lat'] }}, {{ trip['start_lon'] }})<br>
+                    End Coordinates ({{ trip['end_lat'] }}, {{ trip['end_lon'] }})
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No trips saved yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -38,17 +38,19 @@ button:hover {
     margin-bottom: 25px;
 }
 
-.latitude-start, .longitude-start, .latitude-end, .longitude-end , .trip-name {
-    display:flex;
-    align-items:center;
-    margin-bottom: 20px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight:400;
-
+.latitude-start,
+.longitude-start,
+.latitude-end,
+.longitude-end,
+.trip-name {
+  display: flex;
+  justify-content: space-between;  /* label at left edge, input at right edge */
+  align-items: center;
+  margin-bottom: 1.25rem;
+  font-weight:300;          /* space between rows */
 }
 .latitude-start input, .longitude-start input, .latitude-end input, .longitude-end input, .trip-name input {
-    flex: 1;
-    margin-left:16px;
+    margin-left:0;
     padding: 12px 20px;
     border: 1px solid #ccc;
     border-radius: 9999px;
@@ -87,12 +89,21 @@ button:hover {
 
 .coordinates{
     padding: 20px;
-    width: 500px;
-    margin: 0 auto;
-    position:absolute;
-    top:30%;
-    left:50%;
-    transform: translate(-50%, -50%);
+    width: 600px;
+    margin: 2rem auto;
     
 }
+.trip-history {
+    width: 600px;
+    margin: 2rem auto;     
+    padding: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+}
+
+.trip-history ul {
+    line-height: 1.8;
+}
+
 
