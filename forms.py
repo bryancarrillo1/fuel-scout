@@ -3,7 +3,7 @@ from flask_behind_proxy import FlaskBehindProxy
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 
-
+# registration form for new users 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -14,6 +14,7 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
+# After registering, user can log in with this form
 class LoginForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -21,6 +22,7 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Login')
 
+# Form for users to input valid coordinates on the coordinate page
 class CoordinateForm(FlaskForm):
     start_lat = FloatField('Start Latitude', validators=[DataRequired(message="Start Latitude is required."),
         NumberRange(min=-90, max=90, message="Latitude must be between -90 and 90.")])
