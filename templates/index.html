@@ -7,6 +7,7 @@
 </head>
 <body>
 
+    <!-- menu section calls certain javascript functions depending on button clicked -->
     
     <div class="dropdown-menu" id="dropdownMenu">
         <div class="button-container"> 
@@ -22,6 +23,8 @@
         <img src="../static/img/road.png" alt="road" class="road-image">
     </div>
     <script>
+
+        // render register page
         function goToRegistration() {
             window.location.href = "{{ url_for('register') }}";
         }
@@ -29,6 +32,7 @@
 
 <script>
     function goToLogIn() {
+        // render login page
         window.location.href = "{{ url_for('login') }}";
     }
 </script>

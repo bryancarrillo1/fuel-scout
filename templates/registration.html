@@ -1,34 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Fuel-Scout Registration
-    </title>
-    <link rel="stylesheet" href="../static/styleRegister.css" type = "text/css">
-</head>
-
-    <body>
-        <div class="registration">
-        <h1 class="title"> Registration Portal</h1>
-
-        <h3 class="username"> 
-            Username
-            <input type="text" placeholder=" " />   
-        </h3>
-        <h3 class="password">
-            Password
-            <input type="text" placeholder=" " />
-        </h3>
-        <h3 class="password-confirm">
-            Confirm Password
-            <input type="text" placeholder=" " />
-        </h3>
-
-        <button class="button" onclick="">Submit</button>
-    </div>
-    </body>
-
-</html> -->
-
 {% extends "layout.html" %}
 
 {% block extra_css %}
@@ -41,7 +10,7 @@
 
     <form method="POST">
       {{ form.hidden_tag() }}
-
+      <!-- username field -->
       <h3 class="username">
         {{ form.username.label }}
         {{ form.username(class_="input-error" if form.username.errors else "", placeholder="") }}
@@ -49,7 +18,7 @@
           <div class="error">{{ err }}</div>
         {% endfor %}
       </h3>
-
+      <!-- email field -->
       <h3 class="username">
         {{ form.email.label }}
         {{ form.email(class_="input-error" if form.email.errors else "", placeholder="") }}
@@ -57,7 +26,7 @@
           <div class="error">{{ err }}</div>
         {% endfor %}
       </h3>
-
+      <!-- password field -->
       <h3 class="password">
         {{ form.password.label }}
         {{ form.password(class_="input-error" if form.password.errors else "", placeholder="") }}
@@ -65,7 +34,7 @@
           <div class="error">{{ err }}</div>
         {% endfor %}
       </h3>
-
+      <!-- confirm password field -->
       <h3 class="password-confirm">
         {{ form.confirm_password.label }}
         {{ form.confirm_password(class_="input-error" if form.confirm_password.errors else "", placeholder="") }}
@@ -73,7 +42,7 @@
           <div class="error">{{ err }}</div>
         {% endfor %}
       </h3>
-
+      <!-- submit button -->
       <button class="button" type="submit">
         {{ form.submit.label.text }}
       </button>

@@ -1,63 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Fuel-Scout Registration
-    </title>
-    <link rel="stylesheet" href="../static/coordinatesStyle.css" type = "text/css">
-</head>
-
-<body>
-    <div class="coordinates">
-        <h1 class="title"> Enter Coordinates</h1>
-        <form action="/map" method="POST">
-            <h3 class="latitude-start"> 
-                Start location latitude
-                <input type="text" name="start_lat" placeholder=" " />   
-            </h3>
-            <h3 class="longitude-start">
-                Start location longitude
-                <input type="text" name="start_long" placeholder=" " />
-            </h3>
-            <h3 class="latitude-end">
-                End location latitude
-                <input type="text" name="end_lat" placeholder=" " />
-            </h3>
-            <h3 class="longitude-end">
-                End location longitude
-                <input type="text" name="end_long" placeholder=" " />
-            </h3>
-            
-            <h3 class="trip-name">
-                Trip Name
-                <input type="text" name="trip_name" placeholder=" " />
-            </h3>
-
-            <button class="button" onclick="">Submit</button>
-
-        </form>
-</div>
-
-<div class="trip-history">
-    <h3>Your Saved Trips!</h3>
-    {% if trips %}
-        <ul>
-            {% for trip in trips %}
-            <li>
-                <strong>{{ trip['trip_name'] }}</strong><br>
-                Start Coordinates ({{ trip['start_lat'] }}, {{ trip['start_lon'] }})
-                End Coordinates ({{ trip['end_lat'] }}, {{ trip['end_lon'] }})
-              </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No trips saved yet.</p>
-    {% endif %}
-</div>
-</body>
-</html> -->
-
-
-
 {% extends "layout.html" %}
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='coordinatesStyle.css') }}" type="text/css"/>
@@ -68,9 +8,12 @@
         <h1 class="title">
             Enter Coordinates
         </h1>
+        
         <form action = "{{ url_for('map') }}" method=POST > 
 
             {{form.hidden_tag() }}
+
+            <!-- Starting latitude and longitude are required to be in the range of -90 to 90 and -180 to 180 respectively -->
             <h3 class="latitude-start">
                 Start location latitude
                 {{ form.start_lat(class_="input-error" if form.start_lat.errors else "", placeholder=" ") }}
@@ -99,6 +42,8 @@
                     <div class="error">{{ err }}</div>
                 {% endfor %}
             </h3>
+
+            <!-- trip name field, requires a trip name to be entered -->
             <h3 class="trip-name">
                 Trip Name
                 {{ form.trip_name(class_="input-error" if form.trip_name.errors else "", placeholder=" ") }}
@@ -106,11 +51,15 @@
                     <div class="error">{{ err }}</div>
                 {% endfor %}
             </h3>
+
+            <!-- submit button -->
             <button class="button" type="submit">
                 {{ form.submit.label.text }}
             </button>
         </form>
     </div>
+
+    <!-- trip history displayed below submit button block -->
     <div class="trip-history">
         <h3>Your Saved Trips!</h3>
         {% if trips %}
