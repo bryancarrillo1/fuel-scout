@@ -4,3 +4,5 @@ dotenv
 sqlite3
 requests
 unittests
+flask_wtf
+wtforms
