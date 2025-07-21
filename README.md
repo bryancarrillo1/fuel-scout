@@ -11,6 +11,7 @@ To get secret key open up a Python shell and run the following commands:
 ```
 import secrets
 secret_key = secrets.token_hex(32)
+print(secret_key)
 ```
 
 Paste API keys and secret key into .env.
