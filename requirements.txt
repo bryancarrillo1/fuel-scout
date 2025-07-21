@@ -1,0 +1,6 @@
+flask
+sqlalchemy
+dotenv
+sqlite3
+requests
+unittests
