@@ -1,24 +1,24 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, flash, redirect, url_for, request, session
-from forms import RegistrationForm, LoginForm, CoordinateForm
 import sqlalchemy as db
 import sys
 from sqlalchemy import Table, Column, FLOAT, String, MetaData, insert, update
 import os
 
-from database import db as user_db
-from trips_database import TripsDatabase 
+# include api directory for geoapify
+sys.path.insert(0, 'week-3-project/api')
+sys.path.insert(0, 'week-3-project/database')
+
+from database.user_database import db as user_db
+from database.trips_database import TripsDatabase 
 
 trips_db = TripsDatabase()
 
-sys.path.append(os.path.join(os.path.dirname(__file__), 'api'))
+from forms import RegistrationForm, LoginForm, CoordinateForm
+from api.geoapify import get_route, get_coordinates, get_properties, get_fuel_stations_along_route, get_fuel_coordinates, get_fuel_addresses
+from api.tollguru import get_trip_cost
 
-from geoapify import get_route, get_coordinates, get_properties, get_fuel_stations_along_route, get_fuel_coordinates, get_fuel_addresses
-from tollguru import get_trip_cost
-
-# include api directory for geoapify
-sys.path.insert(0, 'week-3-project/api')
 
 app = Flask(__name__) 
 load_dotenv()

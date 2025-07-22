@@ -20,4 +20,7 @@ Install requirements using `pip install -r requirements.txt`.
 
 Run app.py using `python app.py`.
 
+When typing in the coordinates, ensure valid coordinates of places are being used.
+Do not put coordinates that require travel overseas, no route will be displayed.
+
 
