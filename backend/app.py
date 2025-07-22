@@ -24,10 +24,12 @@ app = Flask(__name__)
 load_dotenv()
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  
 
+# home page 
 @app.route("/")                       
 def home_page():
     return render_template('index.html') 
 
+# sign up page 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -56,7 +58,7 @@ def register():
     return render_template('registration.html', title='Register', form=form)
 
 
-
+# map page 
 @app.route("/map", methods=["GET", "POST"])
 def map():
     form = CoordinateForm()
@@ -123,7 +125,7 @@ def map():
 '''@app.route("/register")
 def register():
     return render_template('registration.html')'''
-
+# coordinates page
 @app.route("/coordinates")
 def coordinates():
     form = CoordinateForm()
@@ -131,6 +133,7 @@ def coordinates():
     trips = trips_db.get_user_trips(user_id)
     return render_template("coordinates.html", trips=trips, form=form)
 
+# login page
 @app.route("/login", methods = ['GET', 'POST'])
 def login():
     form = LoginForm()

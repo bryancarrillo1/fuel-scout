@@ -8,9 +8,12 @@
         <h1 class="title">
             Enter Coordinates
         </h1>
+        
         <form action = "{{ url_for('map') }}" method=POST > 
 
             {{form.hidden_tag() }}
+
+            <!-- Starting latitude and longitude are required to be in the range of -90 to 90 and -180 to 180 respectively -->
             <h3 class="latitude-start">
                 Start location latitude
                 {{ form.start_lat(class_="input-error" if form.start_lat.errors else "", placeholder=" ") }}
@@ -39,6 +42,8 @@
                     <div class="error">{{ err }}</div>
                 {% endfor %}
             </h3>
+
+            <!-- trip name field, requires a trip name to be entered -->
             <h3 class="trip-name">
                 Trip Name
                 {{ form.trip_name(class_="input-error" if form.trip_name.errors else "", placeholder=" ") }}
@@ -46,11 +51,15 @@
                     <div class="error">{{ err }}</div>
                 {% endfor %}
             </h3>
+
+            <!-- submit button -->
             <button class="button" type="submit">
                 {{ form.submit.label.text }}
             </button>
         </form>
     </div>
+
+    <!-- trip history displayed below submit button block -->
     <div class="trip-history">
         <h3>Your Saved Trips!</h3>
         {% if trips %}
